@@ -1,0 +1,33 @@
+---
+- hosts: 
+#   - jenyaslv1
+#   - jenyaslv2
+#   - nexus
+   - tomcat
+
+  roles:
+  - java
+  - jenkins_user
+
+#- name: Install sonar
+#  hosts: jenyaslv1
+#  roles:
+#  - sonar_user
+#  - sonar
+
+#- name: Install nexus
+#  hosts: nexus
+#  roles:
+#  - jenkins_user
+#  - nexus_user
+#  - nexus_nginx
+#  - nexus_install
+#  become: yes
+
+- name: Install tomcat
+  hosts: tomcat
+  roles:
+  - tomcat_install
+  become: yes
+          
+

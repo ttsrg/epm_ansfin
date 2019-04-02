@@ -1,0 +1,8 @@
+---
+- hosts: 
+   - jenyaslv1
+   - jenyaslv2
+
+  roles:
+  - java    
+  - jenkins_user

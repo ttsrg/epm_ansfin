@@ -1,0 +1,8 @@
+[jenyaslv1]
+192.168.56.201 ansible_user=vagrant ansible_password=vagrant
+
+[jenyaslv2]
+192.168.56.202 ansible_user=vagrant ansible_password=vagrant
+
+[jenyanexus]
+192.168.56.203 ansible_user=vagrant ansible_password=vagrant
