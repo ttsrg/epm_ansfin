@@ -1,14 +1,27 @@
 ---
-- hosts: 
-   - jenkins
+#- name : install jenkins
+#  hosts:  jenkins
+#  vars: {user=jenkins, gid=2000, uid=2000}
+
 #   - jenyaslv2
 #   - nexus
-   - tomcat
-
+#   - tomcat
+- hosts: jenkins
   roles:
-  - jenkins
-  - user
-    var: {user=jenkins, gid=2000, uid=2000} 
+  - role: jenkins
+    vars:
+      user: jenkins
+      gid: 2000
+      uid: 2000
+  - role: user
+    vars:
+      user: jenkins
+      gid: 2000
+      uid: 2000
+
+
+
+#    vars: {user=jenkins, gid=2000, uid=2000} 
 
 #- name: Install sonar
 #  hosts: jenyaslv1

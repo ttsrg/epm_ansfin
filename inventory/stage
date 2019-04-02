@@ -3,17 +3,17 @@ ansible_user=vagrant ansible_password=vagrant
 ansible_connection=paramiko
 
 
-[jenya]
+[jenkins]
 192.168.56.200 
 
-[jenyaslv1]
+[postgre]
 192.168.56.201 
 
-[jenyaslv2]
+[sonar]
 192.168.56.202 
 
-[nexus]
-192.168.56.203 
+#[nexus]
+#192.168.56.203 
 
-[tomcat]
-192.168.56.204 
+#[tomcat]
+#192.168.56.204 

@@ -2,20 +2,20 @@
 - name: create project directory
   file:
     state: directory
-    path: /opt/{{ user }}
-    owner: "{{ user }}"
-    group: "{{ user }}"
+    path: /opt/{{ user_name }}
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
   become: yes
 
 - name: download sources file
   get_url:
     url: http://mirrors.jenkins.io/war-stable/latest/jenkins.war
-    dest: /opt/{{ user }}/jenkins.war
+    dest: /opt/{{ user_name }}/jenkins.war
   become: yes
 
 - name: copy jenkins.service file
   copy:
-    src: '{{ user }}.service'
+    src: '{{ user_name }}.service'
     dest: /etc/systemd/system/ #multi-user.target.wants
     mode: 0755
   notify:

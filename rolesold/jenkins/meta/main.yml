@@ -1,5 +1,5 @@
 ---
 dependencies:
 - role: java
-#- role: nginx
-#- role: soft
+- role: nginx
+- role: soft

@@ -1,6 +1,6 @@
 # jenkins-installation
 ```
-exec: -  $ ansible-playbook -i inventory/stage  installjenkins.yml -c paramiko 
+exec: -  $ ansible-playbook -i inventory/stage  playbook.yml  
 ```
 
 ```
