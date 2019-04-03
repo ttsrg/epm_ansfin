@@ -5,6 +5,9 @@
     state: present
     gid: "{{ gid }}"
   become: yes
+- debug: msg="Created group- {{user}} with gid- {{gid}}"
+
+
   
 - name: Create  user 
   user:
@@ -13,4 +16,7 @@
     uid: "{{ uid }}"
     group: "{{ gid }}"
   become: yes
+- debug: msg="Created user- {{user}} and added to gid- {{gid}}"
+
+
 

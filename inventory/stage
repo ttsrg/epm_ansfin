@@ -1,19 +1,21 @@
 [all:vars]
-ansible_user=vagrant ansible_password=vagrant
+ansible_user=vagrant 
+ansible_password=vagrant
 ansible_connection=paramiko
 
 
 [jenkins]
-192.168.56.200 
+192.168.56.100 #ansible_user=vagrant ansible_password=vagrant
 
-[postgre]
-192.168.56.201 
+[nexus]
+192.168.56.101 
 
-[sonar]
-192.168.56.202 
+#[postgre]
+#192.168.56.10xxx
 
-#[nexus]
-#192.168.56.203 
+#[sonar]
+#192.168.56.10 xxx
+
 
 #[tomcat]
-#192.168.56.204 
+#192.168.56.104xxx

@@ -1,0 +1,79 @@
+---
+# tasks file for nexus_install
+
+- name: Download nexus
+  get_url:
+    url: https://download.sonatype.com/nexus/3/latest-unix.tar.gz
+    dest: /tmp
+#  creates: /tmp/nexus*
+  
+- name: Unzip Nexus
+  unarchive:
+#    src: /tmp/nexus*.tar.gz
+    src: /tmp/nexus-3.15.2-01-unix.tar.gz
+    dest: /opt/
+    remote_src: yes
+    owner: nexus
+    group: nexus
+    creates: "/opt/nexus*/bin/nexus"
+  become: yes
+  
+- name: setup nexus owners
+  file:
+    path: /opt/nexus-3.15.2-01
+    owner: nexus
+    group: nexus
+    recurse: yes
+    state: directory
+  become: yes
+  
+- name: setup sonatype owners
+  file:
+    path: /opt/sonatype-work
+    owner: nexus
+    group: nexus
+    recurse: yes
+    state: directory
+  become: yes
+      
+- name: Set NEXUS_HOME
+  lineinfile:
+    path: "/home/nexus/.bashrc"
+    line: 'NEXUS_HOME="/opt/nexus-3.15.2-01"'
+    state: present
+  become: yes
+  
+- name: Source .bashrc
+  shell: source /home/nexus/.bashrc
+  become: yes
+  become_user: nexus
+  
+  
+  
+- name: Set nexus user
+  lineinfile:
+    path: "/opt/nexus-3.15.2-01/bin/nexus.rc"
+    regexp: 'run_as_user'
+    line: 'run_as_user="nexus" '
+  become: yes
+
+- name: Copy systemd
+  copy:
+    src: nexus.service
+    dest: /etc/systemd/system
+  become: yes    
+    
+- name: start nexus
+  service:
+    name: nexus
+    state: started
+    enabled: yes
+  become: yes
+
+- name: Get nexus version
+  shell: |
+    curl -Is http://localhost:8081/ | grep Server | awk '{print $2}' | awk -F '/' '{print $2}'
+  warn: false
+  register: nexus_version
+  notify:
+  - save nexus facts

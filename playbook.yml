@@ -1,24 +1,40 @@
 ---
-#- name : install jenkins
-#  hosts:  jenkins
-#  vars: {user=jenkins, gid=2000, uid=2000}
+#- name: common role
+- hosts: all
+  roles: 
+  - common
+  
+ 
 
-#   - jenyaslv2
-#   - nexus
-#   - tomcat
 - hosts: jenkins
   roles:
   - role: jenkins
-    vars:
-      user: jenkins
-      gid: 2000
-      uid: 2000
-  - role: user
-    vars:
-      user: jenkins
-      gid: 2000
-      uid: 2000
+  
+- hosts: nexus
+  roles:
+    - role: nexus
+  tags: nexus
 
+
+#  vars:
+#    user: jenkins
+#    gid: 2000
+#    uid: 2000
+# roles:
+#  - role: jenkins
+#    vars:
+#      user: jenkins
+#      gid: 2000
+#      uid: 2000
+#  - role: user
+#    vars:
+#      user: jenkins
+#      gid: 2000
+#      uid: 2000
+
+#- name : install jenkins
+#  hosts:  jenkins
+#  vars: {user=jenkins, gid=2000, uid=2000}
 
 
 #    vars: {user=jenkins, gid=2000, uid=2000} 

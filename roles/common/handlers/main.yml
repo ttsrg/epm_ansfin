@@ -1,0 +1,4 @@
+---
+- name: enable and start time service
+  service: name=ntpd enabled=yes state=started
+  become: yes

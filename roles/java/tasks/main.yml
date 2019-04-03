@@ -1,4 +1,8 @@
 ---
 - name: Install java
-  yum: name=java state=present
+  yum: name="{{ java_version }}" state=present
   become: yes
+  
+- debug: msg="installed {{ java_version}}"
+
+    

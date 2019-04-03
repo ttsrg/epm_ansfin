@@ -1,0 +1,10 @@
+---
+- name: save nexus facts
+  copy: 
+    content: 
+      {
+        "version": "{{ nexus_version.stdout }}",
+        "installed": "{{ ansible_date_time.iso8601 }}"
+      }
+    dest: /etc/ansible/facts.d/nexus.fact
+  become: yes

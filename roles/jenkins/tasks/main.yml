@@ -1,27 +1,4 @@
 ---
-- name: create project directory
-  file:
-    state: directory
-    path: /opt/{{ user }}
-    owner: "{{ user }}"
-    group: "{{ user }}"
-  become: yes
-
-- name: download sources file
-  get_url:
-    url: http://mirrors.jenkins.io/war-stable/latest/jenkins.war
-    dest: /opt/{{ user }}/jenkins.war
-  become: yes
-
-- name: copy jenkins.service file
-  copy:
-    src: '{{ user }}.service'
-    dest: /etc/systemd/system/ #multi-user.target.wants
-    mode: 0755
-  notify:
-    - systemd daemon reload
-    - restart service jenkins
-  become: yes
-
-
-
+- name: create service
+  include: install.yml
+#  when no: /opt/jenkins

@@ -1,0 +1,21 @@
+---
+users:
+  jenkins:
+    uid: 1234
+    gid: 1234
+  
+  nexus:
+    uid: 2345
+    gid: 2345
+    
+  sonar:
+    uid: 3456
+    gid: 3456
+    
+  postgres:
+    uid: 4567
+    gig: 4567
+    
+#  nginx
+    
+  

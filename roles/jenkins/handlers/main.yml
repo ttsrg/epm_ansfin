@@ -5,6 +5,6 @@
   become: yes
 
 - name:  restart service jenkins
-  service: 'name={{ user }}.service enabled=yes  state=restarted'
+  service: 'name=jenkins.service enabled=yes  state=restarted'
   become: yes
 

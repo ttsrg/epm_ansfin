@@ -1,5 +1,18 @@
 ---
 dependencies:
-- role: java
+ - role: java
+# - role: user
+#   vars:
+#    user: {{user_jenkins}}
+ 
+#  - {role: user, user: constants.users.jenkins, gid: constants.users.jenkins, uid: 1111}
+
+ - {role: user, user: jenkins, gid: 1010, uid: 1010}
+#   vars:
+#     user: {role: constants, user: jenkins}
+#     gid: {role: constants, user: jenkins, gid: 1000}
+# vars:
+#    user: {{ user_jenkins }}
+
 #- role: nginx
 #- role: soft

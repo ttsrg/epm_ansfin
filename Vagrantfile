@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
 
   # Host's hostname master
     config.vm.define "jenkins" do |config|
-     config.vm.network :private_network, ip: "192.168.56.200"
+     config.vm.network :private_network, ip: "192.168.56.100"
      config.vm.hostname = "jenkins"
      config.ssh.insert_key = false
      config.vm.provider "virtualbox" do |vb|
@@ -25,13 +25,13 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: "echo ---=== done===----"
   end
 
-    config.vm.define "postgre" do |config|
-     config.vm.network :private_network, ip: "192.168.56.201"
-     config.vm.hostname = "postgre"
+    config.vm.define "nexus" do |config|
+     config.vm.network :private_network, ip: "192.168.56.101"
+     config.vm.hostname = "nexus"
      config.ssh.insert_key = false
      config.vm.provider "virtualbox" do |vb|
        # Virtualbox VM name
-       vb.name = "postgre"
+       vb.name = "nexus"
        # no matter how much CPU is used in the VM,
        # no more than 50% would be used on your own host machine
        vb.customize ["modifyvm", :id, "--cpuexecutioncap", "30"]
@@ -43,7 +43,7 @@ Vagrant.configure("2") do |config|
   end
 
     config.vm.define "sonar" do |config|
-     config.vm.network :private_network, ip: "192.168.56.202"
+     config.vm.network :private_network, ip: "192.168.56.102"
      config.vm.hostname = "sonar"
      config.ssh.insert_key = false
      config.vm.provider "virtualbox" do |vb|
