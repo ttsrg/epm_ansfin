@@ -4,11 +4,11 @@ ansible_password=vagrant
 ansible_connection=paramiko
 
 
-[jenkins]
-192.168.56.100 #ansible_user=vagrant ansible_password=vagrant
+#[jenkins]
+#192.168.56.100 #ansible_user=vagrant ansible_password=vagrant
 
 [nexus]
-192.168.56.101 
+192.168.56.101
 
 #[postgre]
 #192.168.56.10xxx

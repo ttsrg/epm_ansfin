@@ -1,7 +1,7 @@
 ---
-- name: save nexus facts
+- name: save nexus fact
   copy: 
-    content: 
+    content: |
       {
         "version": "{{ nexus_version.stdout }}",
         "installed": "{{ ansible_date_time.iso8601 }}"

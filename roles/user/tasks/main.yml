@@ -3,10 +3,12 @@
   group:
     name: "{{ user }}"
     state: present
-    gid: "{{ gid }}"
+    gid: "{{ gid }}" #"{{users.{{user}}.gid}}"
   become: yes
 - debug: msg="Created group- {{user}} with gid- {{gid}}"
 
+# - gid: "{{users.{{devops_user}}.gid}}"
+# - uid: "{{users.{{devops_user}}.uid}}"
 
   
 - name: Create  user 

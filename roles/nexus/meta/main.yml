@@ -1,23 +1,7 @@
 ---
 dependencies:
-- role: java
 - role: user
   vars:
-  - username: "{{nexus_user}}"
-  - usergroup: "{{nexus_group}}"
-        
-
-
-
-#- role: constants
-#- role:  user
-#  vars:
-#    user: nexus #"{{users.nexus}}"
-#    gid: "{{users.nexus.gid}}"
-#    uid: "{{users.nexus.uid}}"
-  
-#    - user 
-#      vars:
-#        user: {{users.nexus}}
-#        gid: {{users.nexus.gid}}
-#        uid: {{users.nexus.uid}}
+  - user: "{{ nexus_user }}"
+  - gid: "{{users[nexus_user].gid}}"
+  - uid: "{{users[nexus_user].uid}}"

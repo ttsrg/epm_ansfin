@@ -1,6 +1,6 @@
 ---
 nexus_user: nexus
-nexus_group: nexus
+#nexus_group: nexus
 
 #user: nexus
 #gid: 2000

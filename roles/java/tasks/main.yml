@@ -5,4 +5,14 @@
   
 - debug: msg="installed {{ java_version}}"
 
-    
+
+- name: Java Version
+  shell: java -version 2>&1 | grep version | awk '{print $3}' | sed 's/[^0-9._]/
+  register: java_version
+  changed_when: false
+  notify: save java fact
+
+###add   fact
+#- file: path=/etc/ansible/facts.d state=directory
+#  become: yes
+# ???  listen: save java fact
