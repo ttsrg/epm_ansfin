@@ -7,9 +7,10 @@
 
 
 - name: Java Version
-  shell: java -version 2>&1 | grep version | awk '{print $3}' | sed 's/[^0-9._]/
+  shell:    java -version 2>&1 | grep version | awk '{print $3}' | sed 's/[^0-9._]//g'
   register: java_version
-  changed_when: false
+  args:
+    warn: no
   notify: save java fact
 
 ###add   fact

@@ -8,7 +8,7 @@
     state: directory
   become: yes          
 
-- name: Installing necessary packets
+- name: Installing necessaries packets
   yum:
     name: '{{ packages }}'
     state: installed

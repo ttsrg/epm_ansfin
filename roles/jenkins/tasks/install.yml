@@ -23,5 +23,19 @@
     - restart service jenkins
   become: yes
 
+# workaround
+- meta: flush handlers
 
+- name: Check if jenkins is installed
+  command: systemctl status docker
+  register: jenkins_check
+  ignore_errors: yes
 
+- name: reStart jenkins service
+  service:
+    name: jenkins
+    state: restarted
+    enabled: yes
+  when:
+  - jenkins_check.msg is defined
+  - jenkins_check.msg.find('No such file or directory') != -1

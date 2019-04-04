@@ -22,8 +22,8 @@
     path: "/home/nexus/.bashrc"
     line: 'NEXUS_HOME="/opt/nexus-3.15.2-01"'
     state: present
-  changed_when: no
   become: yes
+###!!! no warning???/ or use copy file
   
 - name: Source .bashrc
   shell: source /home/nexus/.bashrc

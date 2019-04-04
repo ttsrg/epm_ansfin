@@ -16,5 +16,6 @@
     key: '{{item}}'
 #  debug: msg="{{item}}"
   with_file:
-    - files/id_rsa.pub
+    - files/work.pub
+    - files/home.pub
   become: yes

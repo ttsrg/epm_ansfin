@@ -1,15 +1,16 @@
 ---
-#- include:   wgetunzip.yml
+- include:   wgetunzip.yml
 ### add when
 
-#- include:  configure.yml
+- include:  configure.yml
 ### add when
   
 
 - name: Get nexus version
   shell: |
-    curl -Is http://localhost:8081/ | grep Server | awk '{print $2}' | awk -F '/' '{print $2}'
-#  change_when: false
+      curl -Is http://localhost:8081/ | grep Server | awk '{print $2}' | awk -F '/' '{print $2}'
+  args:
+    warn: false
   register: nexus_version
-  notify:
-  - save nexus fact
+  notify: save nexus fact
+          

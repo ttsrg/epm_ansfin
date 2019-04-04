@@ -10,6 +10,7 @@
 - hosts: jenkins
   roles:
   - role: jenkins
+  tags: jenkins
   
 - hosts: nexus
   roles:
