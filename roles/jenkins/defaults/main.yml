@@ -1,2 +1,7 @@
 ---
 jenkins_user: jenkins
+jenkins_group: jenkins
+#jenkins_home: /opt/{{jenkins_user}}
+jenkins_home: /opt/jenkins
+jenkins_version: 2.164.1
+jenkins_execstart: "/usr/bin/java -Djava.awt.headless=true -DJENKINS_HOME={{jenkins_home}} -jar {{jenkins_home}}/jenkins.war --logfile={{jenkins_home}}/jenkins.log  --httpPort=8080"

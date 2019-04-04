@@ -1,0 +1,9 @@
+---
+dependencies:
+- role: java
+- role: user
+  vars:
+  - group: "{{ tomcat_group}}"
+  - user: "{{tomcat_user}}"
+  - gid: "{{users[tomcat_group].gid}}"
+  - uid: "{{users[tomcat_user].uid}}"

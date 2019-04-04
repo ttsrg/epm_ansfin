@@ -1,0 +1,31 @@
+- name: cp sonar conf
+  copy:
+    src: sonar.properties
+    dest: /opt/sonarqube-6.7/conf
+    force: yes
+    owner: "{{ sonar_user }}"
+    group: "{{ sonar_group }}"
+
+- name: template service
+  template:
+      src: sonar.j2
+      dest: /etc/systemd/system/sonar.service
+      mode: 0755
+  notify:
+    - systemd daemon reload
+    - start service sonar
+            
+  
+#- name: start-sonar
+#  systemd:
+#    name: sonar
+#    enabled: yes
+#    state: started
+#    daemon_reload: yes
+    
+#    - name: Get sonar  version
+#      command: java -jar "{{jenkins_home}}/jenkins.war" --version
+#        register: jenkins_version
+#          notify: save jenkins fact
+#            become : yes
+            

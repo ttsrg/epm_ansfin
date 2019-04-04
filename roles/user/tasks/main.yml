@@ -1,11 +1,11 @@
 ---
 - name: Create  group 
   group:
-    name: "{{ user }}"
+    name: "{{ group }}"
     state: present
-    gid: "{{ gid }}" #"{{users.{{user}}.gid}}"
+    gid: "{{ gid }}"
   become: yes
-- debug: msg="Created group- {{user}} with gid- {{gid}}"
+- debug: msg="Created group- {{group}} with gid- {{gid}}"
 
 # - gid: "{{users.{{devops_user}}.gid}}"
 # - uid: "{{users.{{devops_user}}.uid}}"

@@ -1,0 +1,38 @@
+---
+- include: install.yml
+
+- name: add user
+  lineinfile:
+    insertbefore: "</tomcat-users>"
+    path: /opt/apache-tomcat-9.0.17/conf/tomcat-users.xml
+    line: '<user username="stit" password="stit" roles="admin-gui,admin-script,manager-gui,manager-status,manager-script"/>'
+    state: present
+  become: yes
+
+- name: copy context.xml
+  copy:
+    src: context.xml
+    dest: /opt/apache-tomcat-9.0.17/webapps/manager/META-INF/context.xml
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+  become: yes
+
+- name: create service tomcat
+  template:
+    src: tomcat.j2
+    dest: /etc/systemd/system/tomcat.service
+  notify:
+    - systemd daemon reload
+    - start service tomcat
+    - get tomcat version
+  become: yes    
+    
+- name: force owner to tomcat folder
+  file:
+    path: '/opt/apache-tomcat-9.0.17'
+    state: directory
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+  become: yes
+                        
+

@@ -3,6 +3,8 @@ dependencies:
 - role: java
 - role: user
   vars:
-  - user: "{{ jenkins_user }}"
-  - gid: "{{users[jenkins_user].gid}}"
+  - group: "{{ jenkins_group}}"
+###  - group: "{{ jenkins_group}} | default({{jenkins_user}})"
+  - user: "{{jenkins_user}}"
+  - gid: "{{users[jenkins_group].gid}}"
   - uid: "{{users[jenkins_user].uid}}"

@@ -1,0 +1,16 @@
+---
+- name: Download tomcat
+  get_url:
+    url: http://ftp.byfly.by/pub/apache.org/tomcat/tomcat-9/v9.0.17/bin/apache-tomcat-9.0.17.tar.gz
+    dest: /opt/
+  become: yes
+
+- name: unarchive tomcat.tar.gz
+  unarchive:
+    src: '/opt/apache-tomcat-9.0.17.tar.gz'
+    dest: /opt/
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    remote_src: yes
+  become: yes
+  

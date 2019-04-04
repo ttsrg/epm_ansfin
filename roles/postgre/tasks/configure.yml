@@ -1,0 +1,30 @@
+---
+- name:  initializate  DB postgre
+  command: "postgresql-setup initdb"
+  args: 
+    creates: /var/lib/pgsql/data/PG_VERSION
+  
+- name: copy  pg_hba.conf
+  copy:
+    src: pg_hba.conf
+    dest: /var/lib/pgsql/data/
+
+- name: start  service postgre
+  notify: start service postgre
+
+- name: force start service postgre
+  meta: flush handlers 
+
+- name: Configuration postgresql
+  shell: |
+    psql  -c "create user sonar"
+    psql  -c "alter role sonar with createdb"
+    psql  -c "alter user sonar with encrypted password 'sonar'"
+    psql  -c "create database sonar owner sonar"
+    psql  -c "grant all privileges on database sonar to sonar"
+  become: yes
+  become_user: postgres
+
+- name: restart service postgresql
+  notify: restart service postgresql
+  changed_when: no

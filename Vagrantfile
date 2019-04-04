@@ -20,6 +20,7 @@ Vagrant.configure("2") do |config|
        vb.customize ["modifyvm", :id, "--cpuexecutioncap", "30"]
        # RAM provided to VM
        vb.memory = "2048"
+       vb.cpus = 2
      end
  # config.vm.provision "shell", path: "master.sh", keep_color: true
   config.vm.provision "shell", inline: "echo ---=== done===----"
@@ -59,5 +60,21 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: "echo ---=== done===----"
   end
 
+    config.vm.define "nginx" do |config|
+     config.vm.network :private_network, ip: "192.168.56.103"
+     config.vm.hostname = "nginx"
+     config.ssh.insert_key = false
+     config.vm.provider "virtualbox" do |vb|
+       # Virtualbox VM name
+       vb.name = "nginx"
+       # no matter how much CPU is used in the VM,
+       # no more than 50% would be used on your own host machine
+       vb.customize ["modifyvm", :id, "--cpuexecutioncap", "30"]
+       # RAM provided to VM
+       vb.memory = "1024"
+     end
+ # config.vm.provision "shell", path: "master.sh", keep_color: true
+  config.vm.provision "shell", inline: "echo ---=== done===----"
+  end
 
 end

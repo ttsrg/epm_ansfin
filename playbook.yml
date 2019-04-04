@@ -1,21 +1,24 @@
 ---
-#- name: common role
-- hosts: all
+- name: Install soft
+  hosts: all
   roles: 
   - common
-  - sshsudo
+  - sshsudo   # for troubleshooting
   
  
-
-- hosts: jenkins
+# java is included (meta)  for jenkins, nexus
+ 
+- name: Install jenkins
+  hosts: jenkins
+  tags: jenkins
   roles:
   - role: jenkins
-  tags: jenkins
-  
-- hosts: nexus
+
+- name: Install nexus  
+  hosts: nexus
+  tags: nexus
   roles:
   - role: nexus
-  tags: nexus
 
 
 #  vars:

@@ -2,40 +2,30 @@
 - name: create project directory
   file:
     state: directory
-    path: /opt/jenkins
+    path: "{{jenkins_home}}"
     owner: "{{ jenkins_user }}"
-    group: "{{ jenkins_user }}"
+    group: "{{ jenkins_group }}"
   become: yes
 
-- name: download sources file
+- name: download source file
   get_url:
-    url: http://mirrors.jenkins.io/war-stable/latest/jenkins.war
-    dest: /opt/jenkins/jenkins.war
+    url: http://mirrors.jenkins.io/war-stable/{{jenkins_version}}/jenkins.war
+    dest: "{{jenkins_home}}/jenkins.war"
   become: yes
 
-- name: copy jenkins.service file
-  copy:
-    src: jenkins.service
-    dest: /etc/systemd/system/ #multi-user.target.wants
+- name: template  jenkins.service file
+  template:
+    src: jenkins.j2
+    dest: /etc/systemd/system/{{jenkins_user}}.service #multi-user.target.wants
     mode: 0755
   notify:
     - systemd daemon reload
-    - restart service jenkins
+    - start service jenkins
+#    - save jenkins fact
   become: yes
 
-# workaround
-- meta: flush handlers
-
-- name: Check if jenkins is installed
-  command: systemctl status docker
-  register: jenkins_check
-  ignore_errors: yes
-
-- name: reStart jenkins service
-  service:
-    name: jenkins
-    state: restarted
-    enabled: yes
-  when:
-  - jenkins_check.msg is defined
-  - jenkins_check.msg.find('No such file or directory') != -1
+- name: Get jenkins version
+  command: java -jar "{{jenkins_home}}/jenkins.war" --version
+  register: jenkins_version
+  notify: save jenkins fact
+  become : yes

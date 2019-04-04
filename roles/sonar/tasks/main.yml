@@ -1,0 +1,14 @@
+---
+# tasks file for sonar
+- name: Download and unarchive sonar
+  unarchive:
+    src: https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-6.6.zip
+    dest: /opt/
+    remote_src: yes
+    owner: "{{ username }}"
+    group: "{{ usergroup }}"
+    creates: "/opt/sonarqube-6.6/COPYING"
+
+- name: Configuration
+  import_tasks: configure.yml
+

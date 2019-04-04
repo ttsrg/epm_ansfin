@@ -4,7 +4,22 @@
     daemon_reload: yes
   become: yes
 
-- name:  restart service jenkins
-  service: name=jenkins.service enabled=yes  state=restarted
+- name:  start service jenkins
+  service: name={{jenkins_user}}.service enabled=yes  state=started
+  become: yes
+  
+  
+- name: save jenkins fact
+  copy:
+      content: |
+        {
+        "version": "{{ jenkins_version.stdout }}",
+        "installed": "{{ ansible_date_time.iso8601 }}",
+        "jenkins_home": "{{ jenkins_home }}",
+        "jenkins_user": "{{ jenkins_user }}",
+        "jenkins_group": "{{ jenkins_group }}",
+        "jenkins_execstart": "{{jenkins_execstart}}"
+              }
+      dest: /etc/ansible/facts.d/jenkins.fact
   become: yes
 

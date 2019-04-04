@@ -1,4 +1,4 @@
 ---
 - name: create service
   include: install.yml
-#  when no: /opt/jenkins
+#  when:  /opt/{{jenkins_home}}/ == false

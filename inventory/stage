@@ -10,9 +10,9 @@ ansible_connection=paramiko
 192.168.56.101
 
 
-#[sonar]
-#192.168.56.10 xxx
+[sonar]
+192.168.56.102
 
 
-#[tomcat]
-#192.168.56.104xxx
+[nginx]
+192.168.56.103
