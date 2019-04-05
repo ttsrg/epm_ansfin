@@ -1,27 +1,57 @@
 ---
-
-#- debug: msg="testvar {{student}}"
-
 - name: create temp dir for deploy
   file:
     path: /tmp/{{student}}
     state: directory
 
+- name: Get numfer of  last artifact
+  shell: curl -X GET {{lastartifact}}
+  register: build
+ 
+
 - name: download and extract artifact from archiv
   unarchive:
-#    src: http://nexus-ci.playpit.by/repository/MNT-pipeline-training/stit/pipeline-stit/132/pipeline-stit-132.tar.gz
-#           src: http://nexus-ci.playpit.by/repository/MNT-pipeline-training/stit/pipeline-stit         /132    /pipeline-stit-132.tar.gz
-    src: "http://nexus-ci.playpit.by/repository/MNT-pipeline-training/{{student}}/pipeline-{{student}}/{{build}}/pipeline-{{student}}-{{build }}.tar.gz"
+    src: "http://nexus-ci.playpit.by/repository/MNT-pipeline-training/{{student}}/pipeline-{{student}}/{{build.stdout}}/pipeline-{{student}}-{{build.stdout }}.tar.gz"
     dest: /tmp/{{student}}
     remote_src: yes
   become: yes
 
-- name: custom module of deploy
-  deploy_bash: action=deploy student={{student}} tomuser=stit tompass=stit tomserver="192.168.56.102:8080" war=132
-  register: response
-  
-- name: test deploy
-  debug: msg="not deployed!!!"
-  when: "Deployed  not in response.stdout"
-  
+
+
+- name: deploy using custom module 
+  block:
+   - deploy_bash: action=deploy student={{student}} tomuser=stit tompass=stit tomserver={{tomserver}} war=build.stdout
+   - set_fact:
+       last_tomcat_build: "{{build.stdout }}"
+#  notify:  save deploy fact
+   
+ 
+  rescue:
+   - deploy_bash: action=deploy student={{student}} tomuser=stit tompass=stit tomserver={{tomserver}} war=stablebuild
+   - set_fact:
+       last_tomcat_build: "{{stablebuild}}"
+#   - notify: save rescue fact
+
+
+- name: save tomcat deploy fact
+  copy:
+    content: |
+      {
+            "installed": "{{ ansible_date_time.iso8601 }}",
+            "tomcat_build": "{{ last_tomcat_build }}"
+      }
+    dest: /etc/ansible/facts.d/tomcatdeploy.fact
+  become: yes
+
+
+
+# it's for me  
+# https://help.sonatype.com/repomanager3/rest-and-integration-api/search-api
+#curl -X GET "${NEXUS_URL}/service/rest/v1/search/assets?repository=${MAVEN_REPO}&maven.groupId=${GROUP_ID}&maven.artifactId=${ARTIFACT_ID}&maven.baseVersion=${VERSION}&maven.extension=${FILE_EXTENSION}" -H  "ac
+#curl -X GET http://nexus-ci.playpit.by/service/rest/v1/search/assets?group=stit&maven.extension=tar.gz -H  "accept: application/json"
+# curl -X  GET "http://nexus-ci.playpit.by/service/rest/v1/search/assets?group=stit&maven.extension=tar.gz" -H  "accept: application/json"  | jq -rc '.items[].downloadUrl'| sort -r | head -1| cut -f 8 -d '/'
+
+#    src: http://nexus-ci.playpit.by/repository/MNT-pipeline-training/stit/pipeline-stit/132/pipeline-stit-132.tar.gz
+#           src: http://nexus-ci.playpit.by/repository/MNT-pipeline-training/stit/pipeline     -stit         /132       /pipeline-    stit       -132.tar.gz
+#    src: "http://nexus-ci.playpit.by/repository/MNT-pipeline-training/{{student}}/pipeline-{{student}}/{{build.stdout}}/pipeline-{{student}}-{{build.stdout }}.tar.gz"
   

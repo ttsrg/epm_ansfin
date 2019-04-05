@@ -1,3 +1,6 @@
 ---
 student: stit
-build: 130
+rollbackartifact: 130
+lastartifact: "'http://nexus-ci.playpit.by/service/rest/v1/search/assets?group={{student}}&maven.extension=tar.gz' -H  'accept: application/json'  | jq -rc '.items[].downloadUrl'| sort -r | head -1| cut -f 8 -d '/'"
+tomserver: 192.168.56.102:8080
+stablebuild: 126

@@ -1,12 +1,15 @@
 ---
+- name: Install soft
+  hosts: all, !workstation
+  tags: common
+  roles:
+  - common
  
 - name: Install jenkins
   hosts: jenkins
   tags: jenkins
   roles:
   - role: jenkins
-#  - role: common
-#  - role: sshsudo
   
 
 - name: Install nexus  
@@ -21,62 +24,33 @@
   tags: sonar
   roles:
   - sonar
-        
-  
   
 - name: Install nginx
   hosts: nginx
   tags: nginx
   roles:
-#  - common
-#  - sshsudo
   - nginx
-              
-  
-- name: deploy to tomcat
-  hosts: workstation
-  tags: deploy
-  roles:
-  - deploy
-          
 
 - name: Install tomcat
   hosts: sonar
   tags: tomcat
   roles:
-#  - common
-#  - sshsudo
   - tomcat
 
-- name: Install soft
-  hosts: all, !workstation
-  tags: common
+- name: deploy to tomcat
+  hosts: workstation
+  tags: deploy
   roles:
-  - common
-  - sshsudo   # for troubleshooting
-          
+  - deploy
 
 
-#  vars:
-#    user: jenkins
-#    gid: 2000
-#    uid: 2000
-# roles:
-#  - role: jenkins
-#    vars:
-#      user: jenkins
-#      gid: 2000
-#      uid: 2000
-#  - role: user
-#    vars:
-#      user: jenkins
-#      gid: 2000
-#      uid: 2000
-
-#- name : install jenkins
-#  hosts:  jenkins
-#  vars: {user=jenkins, gid=2000, uid=2000}
+- name: Install sshsudo
+  hosts: all, !workstation
+  tags: sshsudo
+  roles:
+  - sshsudo 
 
 
-#    vars: {user=jenkins, gid=2000, uid=2000} 
+
+
 

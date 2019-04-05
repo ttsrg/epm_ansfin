@@ -19,6 +19,7 @@ echo "fromAnsible= $1"
 deploy()
 {
   curl -T "/tmp/$student/helloworld-ws/target/helloworld-ws.war"  "http://$tomuser:$tompass@$tomserver/manager/text/deploy?path=/stit&update=true&tag=$war"
+  printf '{"changed": true, "build": "%s"}' $war
 }
 
 
@@ -29,14 +30,14 @@ deploy)
 esac
     
 
-cat << EOF
-{
-   "time: "$(date)",
-   "changed": true,
-   "msg": "custom module is explained",
-   "msg": "tomuser= $tomuser",
-   "msg": "tomserver= $tomserver"
-}
+#cat << EOF
+#{
+#   "time: "$(date)",
+#   "changed": true,
+#   "msg": "custom module is explained",
+#   "msg": "tomuser= $tomuser",
+#   "msg": "tomserver= $tomserver"
+#}
 EOF
 
 

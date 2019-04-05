@@ -1,8 +1,0 @@
----
-- hosts: jenya
-
-  roles:
-#  - java    ##meta jenkins
-  - jenkins_user
-  - jenkins
-#  - nginx   ## meta jenkins
