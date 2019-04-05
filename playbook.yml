@@ -1,24 +1,27 @@
 ---
-- name: Install soft
-  hosts: all
-  roles: 
-  - common
-  - sshsudo   # for troubleshooting
-  
- 
-# java is included (meta)  for jenkins, nexus
  
 - name: Install jenkins
   hosts: jenkins
   tags: jenkins
   roles:
   - role: jenkins
+#  - role: common
+#  - role: sshsudo
+  
 
 - name: Install nexus  
   hosts: nexus
   tags: nexus
   roles:
   - role: nexus
+
+
+- name: Install sonar
+  hosts: sonar
+  tags: sonar
+  roles:
+  - sonar
+        
   
   
 - name: Install nginx
@@ -36,17 +39,23 @@
   roles:
   - deploy
           
-          
-          
 
 - name: Install tomcat
   hosts: sonar
   tags: tomcat
   roles:
-  - common
-  - sshsudo
+#  - common
+#  - sshsudo
   - tomcat
-#  become: yes
+
+- name: Install soft
+  hosts: all, !workstation
+  tags: common
+  roles:
+  - common
+  - sshsudo   # for troubleshooting
+          
+
 
 #  vars:
 #    user: jenkins
@@ -70,18 +79,4 @@
 
 
 #    vars: {user=jenkins, gid=2000, uid=2000} 
-
-#- name: Install sonar
-#  hosts: jenyaslv1
-#  roles:
-#  - sonar
-
-#- name: Install nexus
-#  hosts: nexus
-#  roles:
-#  - jenkins_user
-#  - nexus_user
-#  - nexus_nginx
-#  - nexus_install
-#  become: yes
 

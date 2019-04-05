@@ -8,6 +8,7 @@
   include: install.yml
   when: not  jenkinsdir.stat.exists
 
+
 #IT doesn't work
 #- name: check jenkins dir
 #  shell: "ls /opt/jenkins2"

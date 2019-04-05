@@ -1,9 +1,10 @@
 ---
 dependencies:
 - role: postgre
+- role: java
 - role: user
   vars:
-  - group: "{{ sonar_group}}"
-  - user: "{{sonar_user}}"
+  - group: "{{ sonar_group }}"
+  - user: "{{ sonar_user }}"
   - gid: "{{users[sonar_group].gid}}"
   - uid: "{{users[sonar_user].uid}}"

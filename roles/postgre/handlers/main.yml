@@ -11,18 +11,14 @@
 - name:  restart service postgre
   service: name=postgresql.service enabled=yes  state=restarted
   become: yes
-  
-#- name: save postgresql fact
-#  copy:
-#      content: |
-#        {
-#        "version": "{{ jenkins_version.stdout }}",
-#        "installed": "{{ ansible_date_time.iso8601 }}",
-#        "jenkins_home": "{{ jenkins_home }}",
-#        "jenkins_user": "{{ jenkins_user }}",
-#        "jenkins_group": "{{ jenkins_group }}",
-#        "jenkins_execstart": "{{jenkins_execstart}}"
-#              }
-#      dest: /etc/ansible/facts.d/postgresql.fact
-#  become: yes
-
+ 
+ 
+- name: save postgre fact
+  copy:
+    content: |
+      { 
+        "version": "{{ postgre_version.stdout }}",
+        "installed": "{{ ansible_date_time.iso8601 }}"
+      }
+    dest: /etc/ansible/facts.d/postgre.fact
+  become: yes

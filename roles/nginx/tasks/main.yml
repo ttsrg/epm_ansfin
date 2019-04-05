@@ -17,6 +17,14 @@
   notify: restart-nginx
   become: yes
 
+
+- name: Get nginx version
+  shell: |
+     nginx -v 2>&1 | awk -F/ '{print $2}'
+  register: nginx_version
+  notify:
+  - save nginx fact
+
 #- name: Setup  nginx configuration
 #  template: src=jenkins.conf.j2 dest=/etc/nginx/conf.d/jenkins.conf owner=root group=root mode=0644
 #  notify: restart-nginx

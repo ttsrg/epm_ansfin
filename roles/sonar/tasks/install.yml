@@ -7,5 +7,5 @@
     owner: "{{ sonar_user }}"
     group: "{{ sonar_group }}"
     creates: "/opt/sonarqube-6.7/COPYING"
-
+  become: yes
 

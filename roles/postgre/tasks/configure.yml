@@ -3,17 +3,24 @@
   command: "postgresql-setup initdb"
   args: 
     creates: /var/lib/pgsql/data/PG_VERSION
-  
+  become: yes
+  become_user: postgres
+      
+    
 - name: copy  pg_hba.conf
   copy:
     src: pg_hba.conf
     dest: /var/lib/pgsql/data/
-
-- name: start  service postgre
   notify: start service postgre
+  become: yes
+  become_user: postgres
+      
+
+#- name: start service postgre
+#  notify: start service postgre
 
 - name: force start service postgre
-  meta: flush handlers 
+  meta: flush_handlers 
 
 - name: Configuration postgresql
   shell: |
@@ -25,6 +32,11 @@
   become: yes
   become_user: postgres
 
-- name: restart service postgresql
-  notify: restart service postgresql
-  changed_when: no
+
+- name: Get postgres version
+  shell: |
+    postgres -V | awk '{print $NF}'
+  register: postgre_version
+  notify:
+  - restart service postgre
+  - save postgre fact

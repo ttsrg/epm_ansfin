@@ -8,10 +8,6 @@ users:
     uid: 2345
     gid: 2345
     
-  sonar:
-    uid: 3456
-    gid: 3456
-    
   postgres:
     uid: 4567
     gig: 4567
@@ -23,7 +19,11 @@ users:
   nginx:
     uid: 6789
     gid: 6789
-    
+
+  sonar:
+    gid: 7777
+    uid: 7777
+        
   devops:
     uid: 6666
     gid: 6666  

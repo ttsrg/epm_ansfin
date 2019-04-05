@@ -5,6 +5,7 @@
     force: yes
     owner: "{{ sonar_user }}"
     group: "{{ sonar_group }}"
+  become: yes
 
 - name: template service
   template:
@@ -14,18 +15,6 @@
   notify:
     - systemd daemon reload
     - start service sonar
-            
+    - save sonar fact
+  become: yes
   
-#- name: start-sonar
-#  systemd:
-#    name: sonar
-#    enabled: yes
-#    state: started
-#    daemon_reload: yes
-    
-#    - name: Get sonar  version
-#      command: java -jar "{{jenkins_home}}/jenkins.war" --version
-#        register: jenkins_version
-#          notify: save jenkins fact
-#            become : yes
-            

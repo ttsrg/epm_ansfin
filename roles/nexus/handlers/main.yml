@@ -1,4 +1,16 @@
 ---
+
+- name: systemd daemon reload
+  systemd:
+    daemon_reload: yes
+  become: yes
+        
+- name:  start service nexus
+  service: name=nexus.service enabled=yes  state=started
+  become: yes
+            
+
+
 - name: save nexus fact
   copy: 
     content: |

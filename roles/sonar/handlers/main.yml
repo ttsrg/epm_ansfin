@@ -9,17 +9,13 @@
   become: yes
   
   
-#- name: save sonar fact
-#  copy:
-#      content: |
-#        {
-#        "version": "{{ jenkins_version.stdout }}",
-#        "installed": "{{ ansible_date_time.iso8601 }}",
-#        "jenkins_home": "{{ jenkins_home }}",
-#        "jenkins_user": "{{ jenkins_user }}",
-#        "jenkins_group": "{{ jenkins_group }}",
-#        "jenkins_execstart": "{{jenkins_execstart}}"
-#              }
-#      dest: /etc/ansible/facts.d/sonar.fact
-#  become: yes
-
+- name: save sonar fact
+  copy:
+    content: |
+      {
+            "installed": "{{ ansible_date_time.iso8601 }}",
+            "sonar_version": "{{ sonar_version }}"
+      }
+    dest: /etc/ansible/facts.d/sonar.fact
+  become: yes
+                                                                  

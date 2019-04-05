@@ -1,0 +1,20 @@
+---
+
+- name: Download nexus
+  get_url:
+    url: https://download.sonatype.com/nexus/3/latest-unix.tar.gz
+    dest: /tmp
+#  creates: /tmp/nexus*
+  
+- name: Unzip Nexus
+  unarchive:
+#    src: /tmp/nexus*.tar.gz
+    src: /tmp/nexus-3.15.2-01-unix.tar.gz
+    dest: /opt/
+    remote_src: yes
+    owner: nexus
+    group: nexus
+    creates: "/opt/nexus*/bin/nexus"
+  changed_when: no
+  become: yes
+  

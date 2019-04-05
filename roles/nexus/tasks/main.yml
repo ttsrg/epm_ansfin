@@ -1,10 +1,17 @@
 ---
-- include:   wgetunzip.yml
-### add when
+
+- name: get jenkins dir
+  stat: path="{{nexus_home}}"
+  register: nexusdir
+      
+
+- include:   install.yml
+  when: not  nexusdir.stat.exists
 
 - include:  configure.yml
-### add when
+  when: not  nexusdir.stat.exists
   
+
 
 - name: Get nexus version
   shell: |

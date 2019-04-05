@@ -1,3 +1,5 @@
 ---
 sonar_user: sonar
 sonar_group: sonar
+sonar_home: /opt/sonarqube-6.7
+sonar_version: "Version 6.7 (build 33306)"
