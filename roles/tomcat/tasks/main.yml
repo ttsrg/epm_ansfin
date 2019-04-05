@@ -1,3 +1,15 @@
 ---
-- include: install.yml
-- include: configure.yml
+
+
+- name: get TOMCAT dir
+  stat: path="{{tomcat_home}}"
+  register: tomcatdir
+
+- name: install tomcat
+  include: install.yml
+  when: not tomcatdir.stat.exists
+  
+  
+- name: configure tomcat
+  include: configure.yml
+  when: not tomcatdir.stat.exists

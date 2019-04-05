@@ -1,3 +1,9 @@
 ---
 tomcat_user: tomcat
 tomcat_group: tomcat
+
+#jenkins_home: /opt/{{jenkins_user}}
+tomcat_home: /opt/apache-tomcat-{{tomcat_version}}
+tomcat_version: 9.0.17
+tomcat_execstart: "/opt/apache-tomcat-{{tomcat_version}}/bin/startup.sh"
+tomcat_exec_stop: "/opt/apache-tomcat-{{tomcat_version}}/bin/shutdown.sh"

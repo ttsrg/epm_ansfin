@@ -20,7 +20,9 @@ users:
     uid: 5678
     gid: 5678
     
-#  nginx
+  nginx:
+    uid: 6789
+    gid: 6789
     
   devops:
     uid: 6666

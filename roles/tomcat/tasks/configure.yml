@@ -1,7 +1,7 @@
 ---
 - include: install.yml
 
-- name: add user
+- name: adding  users and roles
   lineinfile:
     insertbefore: "</tomcat-users>"
     path: /opt/apache-tomcat-9.0.17/conf/tomcat-users.xml

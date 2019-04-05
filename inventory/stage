@@ -3,8 +3,11 @@ ansible_user=vagrant
 ansible_password=vagrant
 ansible_connection=paramiko
 
+[workstation]
+localhost ansible_connection=local
+
 [jenkins]
-192.168.56.100 
+192.168.56.100
 
 [nexus]
 192.168.56.101

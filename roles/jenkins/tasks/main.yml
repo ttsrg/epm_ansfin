@@ -1,4 +1,26 @@
 ---
-- name: create service
+
+- name: get jenkins dir
+  stat: path="{{jenkins_home}}"
+  register: jenkinsdir
+  
+- name: install jenkins  
   include: install.yml
-#  when:  /opt/{{jenkins_home}}/ == false
+  when: not  jenkinsdir.stat.exists
+
+#IT doesn't work
+#- name: check jenkins dir
+#  shell: "ls /opt/jenkins2"
+#  register: out
+#  ignore_errors: yes
+
+#- name: install jenkins if /opt/jenkins not exists
+#  include: install.yml
+#  failed_when:  out.rc == 0
+
+
+#STDERR:
+#ls: cannot access /opt/jenkins2: No such file or directory
+
+#MSG:
+#non-zero return code

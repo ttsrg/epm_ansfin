@@ -1,5 +1,27 @@
 ---
-#- name: custom module of deploy
-#  deploy_bash: 133
-#  action: deploy_bash 133
-      
+
+#- debug: msg="testvar {{student}}"
+
+- name: create temp dir for deploy
+  file:
+    path: /tmp/{{student}}
+    state: directory
+
+- name: download and extract artifact from archiv
+  unarchive:
+#    src: http://nexus-ci.playpit.by/repository/MNT-pipeline-training/stit/pipeline-stit/132/pipeline-stit-132.tar.gz
+#           src: http://nexus-ci.playpit.by/repository/MNT-pipeline-training/stit/pipeline-stit         /132    /pipeline-stit-132.tar.gz
+    src: "http://nexus-ci.playpit.by/repository/MNT-pipeline-training/{{student}}/pipeline-{{student}}/{{build}}/pipeline-{{student}}-{{build }}.tar.gz"
+    dest: /tmp/{{student}}
+    remote_src: yes
+  become: yes
+
+- name: custom module of deploy
+  deploy_bash: action=deploy student={{student}} tomuser=stit tompass=stit tomserver="192.168.56.102:8080" war=132
+  register: response
+  
+- name: test deploy
+  debug: msg="not deployed!!!"
+  when: "Deployed  not in response.stdout"
+  
+  

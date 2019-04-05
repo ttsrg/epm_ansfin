@@ -19,7 +19,34 @@
   tags: nexus
   roles:
   - role: nexus
+  
+  
+- name: Install nginx
+  hosts: nginx
+  tags: nginx
+  roles:
+#  - common
+#  - sshsudo
+  - nginx
+              
+  
+- name: deploy to tomcat
+  hosts: workstation
+  tags: deploy
+  roles:
+  - deploy
+          
+          
+          
 
+- name: Install tomcat
+  hosts: sonar
+  tags: tomcat
+  roles:
+  - common
+  - sshsudo
+  - tomcat
+#  become: yes
 
 #  vars:
 #    user: jenkins
@@ -47,7 +74,6 @@
 #- name: Install sonar
 #  hosts: jenyaslv1
 #  roles:
-#  - sonar_user
 #  - sonar
 
 #- name: Install nexus
@@ -58,11 +84,4 @@
 #  - nexus_nginx
 #  - nexus_install
 #  become: yes
-
-#- name: Install tomcat
-#  hosts: tomcat
-#  roles:
-#  - tomcat_install
-#  become: yes
-          
 
