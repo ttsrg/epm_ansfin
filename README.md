@@ -13,19 +13,19 @@ common     deploy  jenkins  nexus  postgre  test    user
 constants  java    library  nginx  sonar    tomcat  usersudossh
 ```
 
-Description roles:
-common - installs common soft
-user - creates users
-constants - includes default users and vars
-deploy - deploys last java app from nexus  to tomcat or rollbaks stable version if trouble
-java - installs java jdk
-library - custom bash module for deploy
-nginx - proxy for all servers
-sonar - sonar-scanner for tests, include install postgre
-nexus - storage for artifacts
-tomcat - webapplet server
-jenkins - ci server
-test/usersudossh - roles for troubleshooting
+# Description roles:
+- common - installs common soft
+- user - creates users
+- constants - includes default users and vars
+- deploy - deploys last java app from nexus  to tomcat or rollbaks stable version if trouble
+- java - installs java jdk
+- library - custom bash module for deploy
+- nginx - proxy for all servers
+- sonar - sonar-scanner for tests, include install postgre
+- nexus - storage for artifacts
+- tomcat - webapplet server
+- jenkins - ci server
+- test/usersudossh - roles for troubleshooting
 
 # Usage:
 - To run cluster 
