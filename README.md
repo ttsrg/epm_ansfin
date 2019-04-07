@@ -28,18 +28,21 @@ constants  java    library  nginx  sonar    tomcat  usersudossh
 - test/usersudossh - roles for troubleshooting
 
 # Usage:
+
 - To run cluster 
-'''
+```
 vagrant up
-'''
+```
+
 - To run playbook
-'''
+```
 exec: -  $ ansible-playbook -i inventory/stage  playbook.yml  or you may edit start.sh
-'''
+```
+
 - to gather facts
-'''
+```
 ansible all -m setup -a "filter=ansible-local"
-'''
+```
 
 ```
 users added in role constants
