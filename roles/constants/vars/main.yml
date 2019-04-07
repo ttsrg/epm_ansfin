@@ -15,7 +15,8 @@ users:
   tomcat:
     uid: 5678
     gid: 5678
-    
+    sudoers: "  ALL=(ALL)       NOPASSWD: ALL "
+
   nginx:
     uid: 6789
     gid: 6789
@@ -28,3 +29,8 @@ users:
   devops:
     uid: 6666
     gid: 6666
+
+#  test:
+#    uid: 5555
+#    gid: 5555
+#    sudoers: "  ALL=(ALL)       NOPASSWD: ALL "

@@ -50,11 +50,11 @@
 #  roles:
 #  - usersudossh 
 
-- name: test
-  hosts: sonar
-  tags: test
-  roles:
-  - test
+#- name: test
+#  hosts: sonar
+#  tags: test
+#  roles:
+#  - test
 
 
 

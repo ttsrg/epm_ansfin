@@ -18,4 +18,10 @@
 - debug: msg="Created user- {{user}} and added to gid- {{gid}}"
 
 
+- name: Add sudoers priveleges  in a separate file
+  template:
+    src: sudoers.j2
+    dest: /etc/sudoers.d/{{ user }}
+    validate: visudo -cf %s
+  become: yes
 
