@@ -1,0 +1,22 @@
+---
+dependencies:
+- role: user
+  vars:
+  - user: "{{ sudo_user }}"
+  - gid: "{{users[sudo_user].gid}}"
+  - uid: "{{users[sudo_user].uid}}"
+        
+
+
+
+#- role:  user
+#  vars:
+#    user: nexus #"{{users.nexus}}"
+#    gid: "{{users.nexus.gid}}"
+#    uid: "{{users.nexus.uid}}"
+  
+#    - user 
+#      vars:
+#        user: {{users.nexus}}
+#        gid: {{users.nexus.gid}}
+#        uid: {{users.nexus.uid}}

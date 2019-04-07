@@ -18,16 +18,30 @@
   become: yes
 
 
+#- name: check file
+#  shell: ls -la /etc/ansible/facts.d/tomcatdeploy.fact
+#  ignore_errors: yes
+#  register: out
+
+#- name: check stableversion in fact via ls
+#  shell: cat /etc/ansible/facts.d/tomcatdeploy.fact | jq '.tomcat_build'| tr -d \"
+#  register: stablebuild 
+#  when: out.rc == 0
+
+
 - name: check file tomcatfact exists
   stat:
     path: /etc/ansible/facts.d/tomcatdeploy.fact
   register: tomcatfact
 
+- debug: var=tomcatfact
+- debug: var=stablebuild.stdout
 
-- name: check stableversion if fact
+- name: check stableversion in fact
   shell: cat /etc/ansible/facts.d/tomcatdeploy.fact | jq '.tomcat_build'| tr -d \"
   register: stablebuild
   when: tomcatfact.stat.exists == true
+
 
 - name: deploy using custom module 
   block:

@@ -24,3 +24,7 @@ users:
     gid: 7777
     uid: 7777
         
+
+  devops:
+    uid: 6666
+    gid: 6666

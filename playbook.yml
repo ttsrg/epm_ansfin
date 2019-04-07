@@ -46,9 +46,15 @@
 
 #- name: Install sshsudo
 #  hosts: all, !workstation
-#  tags: sshsudo
+#  tags: usersshsudo
 #  roles:
-#  - sshsudo 
+#  - usersudossh 
+
+- name: test
+  hosts: sonar
+  tags: test
+  roles:
+  - test
 
 
 
