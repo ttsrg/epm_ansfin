@@ -44,11 +44,11 @@
   - deploy
 
 
-- name: Install sshsudo
-  hosts: all, !workstation
-  tags: sshsudo
-  roles:
-  - sshsudo 
+#- name: Install sshsudo
+#  hosts: all, !workstation
+#  tags: sshsudo
+#  roles:
+#  - sshsudo 
 
 
 

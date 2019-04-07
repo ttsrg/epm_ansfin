@@ -7,7 +7,6 @@
 
 [ -f "$1" ] && source $1
 echo "fromAnsible= $1"
-
 #[[ -f /tmp/$artifactarc.tar.gz ]] && rm -rf /tmp/$artifactarc.tar.gz
 
 #war=133
@@ -20,25 +19,30 @@ deploy()
 {
   curl -T "/tmp/$student/helloworld-ws/target/helloworld-ws.war"  "http://$tomuser:$tompass@$tomserver/manager/text/deploy?path=/stit&update=true&tag=$war"
   printf '{"changed": true, "build": "%s"}' $war
-}
-
-
-case "$action" in
-deploy)
-  deploy
-    ;;
-esac
-    
-
-#cat << EOF
-#{
+#  cat << EOF
+#  {
 #   "time: "$(date)",
 #   "changed": true,
 #   "msg": "custom module is explained",
 #   "msg": "tomuser= $tomuser",
 #   "msg": "tomserver= $tomserver"
-#}
-EOF
+#  }
+#  EOF
+
+}
+
+
+case "$action" in
+  deploy)
+    deploy
+    ;;
+  *)
+#    printf '{"changed": false, "rollbackbuild": "%s"}' $war
+    echo "wrong action"
+    exit 1
+    ;;
+esac
+    
 
 
 exit 0

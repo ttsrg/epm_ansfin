@@ -35,4 +35,8 @@
     group: "{{ tomcat_group }}"
   become: yes
                         
+- name: get tomcat version
+  shell: |
+      /opt/apache-tomcat-9.0.17/bin/version.sh | grep 'Server version'| cut -f 2
+  register: tomcat_version
 

@@ -7,7 +7,8 @@
 - name: Get numfer of  last artifact
   shell: curl -X GET {{lastartifact}}
   register: build
- 
+  args:
+    warn: false
 
 - name: download and extract artifact from archiv
   unarchive:
@@ -17,19 +18,31 @@
   become: yes
 
 
+- name: check file tomcatfact exists
+  stat:
+    path: /etc/ansible/facts.d/tomcatdeploy.fact
+  register: tomcatfact
+
+
+- name: check stableversion if fact
+  shell: cat /etc/ansible/facts.d/tomcatdeploy.fact | jq '.tomcat_build'| tr -d \"
+  register: stablebuild
+  when: tomcatfact.stat.exists == true
 
 - name: deploy using custom module 
   block:
-   - deploy_bash: action=deploy student={{student}} tomuser=stit tompass=stit tomserver={{tomserver}} war=build.stdout
+#   - command: /bin/false
+   - deploy_bash: action=deploy student={{student}} tomuser=stit tompass=stit tomserver={{tomserver}} war={{build.stdout}}
    - set_fact:
        last_tomcat_build: "{{build.stdout }}"
+       stablebuild: "{{build.stdout }}"
 #  notify:  save deploy fact
    
  
   rescue:
-   - deploy_bash: action=deploy student={{student}} tomuser=stit tompass=stit tomserver={{tomserver}} war=stablebuild
+   - deploy_bash: action=deploy student={{student}} tomuser=stit tompass=stit tomserver={{tomserver}} war={{stablebuild.stdout}}
    - set_fact:
-       last_tomcat_build: "{{stablebuild}}"
+       last_tomcat_build: "{{stablebuild.stdout}}"
 #   - notify: save rescue fact
 
 
@@ -44,6 +57,7 @@
   become: yes
 
 
+- debug: var=last_tomcat_build
 
 # it's for me  
 # https://help.sonatype.com/repomanager3/rest-and-integration-api/search-api

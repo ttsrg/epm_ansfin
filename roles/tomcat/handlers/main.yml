@@ -10,11 +10,6 @@
   service: name=tomcat.service enabled=yes  state=started
   become: yes
             
-- name: get tomcat version
-  shell: |
-      /opt/apache-tomcat-9.0.17/bin/version.sh | grep 'Server version'| cut -f 2
-  register: tomcat_version
-        
 
 - name: save tomcat fact
   copy: 
