@@ -1,7 +1,7 @@
 # Jenkins installation 
 
 # INFO:
-# Vagrantfile vith next vm's:
+# Vagrantfile, vagrant starts next vm's:
 - 1 jenkins
 - 2 nexus
 - 3 sonar(postgre, tomcat)
